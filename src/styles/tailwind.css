@@ -1,0 +1,324 @@
+@import "tailwindcss";
+
+/* Tell Tailwind to scan BlockNote's compiled shadcn classes so its utilities
+   land in the bundle. */
+@source "../../node_modules/@blocknote/shadcn";
+
+/* `data-theme="midnight" data-mode="view"` etc. — promote these to variants. */
+@custom-variant theme-midnight ([data-theme="midnight"] &);
+@custom-variant theme-ghibli   ([data-theme="ghibli"] &);
+@custom-variant theme-forest   ([data-theme="forest"] &);
+@custom-variant theme-sunset   ([data-theme="sunset"] &);
+@custom-variant view-mode      ([data-mode="view"] &);
+/* BlockNote shadcn uses `dark:` on a few pieces (e.g. destructive menu). Tie it to Writepad dark themes, not OS prefs. */
+@custom-variant dark (html[data-theme="midnight"] &, html[data-theme="forest"] &);
+
+/* ── Writepad design tokens ─────────────────────────────────────────────── */
+:root {
+  --color-bg:           #ffffff;
+  --color-bg-elevated:  #ffffff;
+  --color-bg-subtle:    #f6f6f6;
+  --color-fg:           #111111;
+  --color-fg-soft:      #5f6368;
+  --color-fg-faint:     #9aa0a6;
+  --color-rule:         #e8e8e8;
+  --color-primary:      #111111;
+  --color-on-primary:   #ffffff;
+  --color-primary-soft: #f0f0f0;
+  --color-danger:       #ef4444;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-ui:      'Inter', system-ui, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / .04), 0 2px 6px rgb(0 0 0 / .04);
+  --shadow-pop:  0 4px 12px rgb(0 0 0 / .10), 0 2px 4px rgb(0 0 0 / .06);
+}
+
+[data-theme="midnight"] {
+  --color-bg:           #0f1117;
+  --color-bg-elevated:  #1a1d26;
+  --color-bg-subtle:    #242836;
+  --color-fg:           #e8eaf0;
+  --color-fg-soft:      #a0a8bc;
+  --color-fg-faint:     #5a6278;
+  --color-rule:         #2a2f40;
+  --color-primary:      #5b8dee;
+  --color-on-primary:   #0f1117;
+  --color-primary-soft: #1e2d52;
+  --color-danger:       #f05454;
+  --shadow-soft:        0 1px 2px rgb(0 0 0 / .3), 0 2px 6px rgb(0 0 0 / .2);
+  --shadow-pop:         0 4px 12px rgb(0 0 0 / .5), 0 2px 4px rgb(0 0 0 / .3);
+}
+
+[data-theme="ghibli"] {
+  --color-bg:           #f0ebe0;
+  --color-bg-elevated:  #faf6ee;
+  --color-bg-subtle:    #e6dcc6;
+  --color-fg:           #2d2416;
+  --color-fg-soft:      #5c4a30;
+  --color-fg-faint:     #9c896a;
+  --color-rule:         #d4c8b0;
+  --color-primary:      #4a8f6f;
+  --color-on-primary:   #ffffff;
+  --color-primary-soft: #d8ece3;
+  --color-danger:       #c45858;
+  --shadow-soft:        0 2px 8px rgb(45 36 22 / .08), 0 1px 3px rgb(45 36 22 / .05);
+  --shadow-pop:         0 6px 20px rgb(45 36 22 / .15), 0 2px 6px rgb(45 36 22 / .10);
+  --font-body:          'Lora', Georgia, serif;
+}
+
+[data-theme="forest"] {
+  --color-bg:           #1a2218;
+  --color-bg-elevated:  #232e20;
+  --color-bg-subtle:    #2d3d29;
+  --color-fg:           #d4e0ce;
+  --color-fg-soft:      #8fa886;
+  --color-fg-faint:     #566b50;
+  --color-rule:         #3a4e35;
+  --color-primary:      #7ec87a;
+  --color-on-primary:   #0f1a0e;
+  --color-primary-soft: #243022;
+}
+
+[data-theme="sunset"] {
+  --color-bg:           #fdf5ee;
+  --color-bg-elevated:  #ffffff;
+  --color-bg-subtle:    #f5e6d4;
+  --color-fg:           #1a0e08;
+  --color-fg-soft:      #4a2e18;
+  --color-fg-faint:     #8a6050;
+  --color-rule:         #e8d4c0;
+  --color-primary:      #e06b35;
+  --color-on-primary:   #ffffff;
+  --color-primary-soft: #fae4d4;
+}
+
+/* Expose Writepad tokens as Tailwind theme values so e.g. `bg-bg-subtle`,
+   `text-fg-soft`, `border-rule`, `rounded-md`, `font-body`, `shadow-soft`
+   etc. work as utilities. */
+@theme inline {
+  --color-bg:            var(--color-bg);
+  --color-bg-elevated:   var(--color-bg-elevated);
+  --color-bg-subtle:     var(--color-bg-subtle);
+  --color-fg:            var(--color-fg);
+  --color-fg-soft:       var(--color-fg-soft);
+  --color-fg-faint:      var(--color-fg-faint);
+  --color-rule:          var(--color-rule);
+  --color-primary:       var(--color-primary);
+  --color-on-primary:    var(--color-on-primary);
+  --color-primary-soft:  var(--color-primary-soft);
+  --color-danger:        var(--color-danger);
+
+  /* shadcn / BlockNote floating-UI color tokens
+     bg-popover, hover:bg-accent, text-muted-foreground, etc. */
+  --color-background:           var(--background);
+  --color-foreground:           var(--foreground);
+  --color-card:                 var(--card);
+  --color-card-foreground:      var(--card-foreground);
+  --color-popover:              var(--popover);
+  --color-popover-foreground:   var(--popover-foreground);
+  --color-primary-foreground:   var(--primary-foreground);
+  --color-secondary:            var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:                var(--muted);
+  --color-muted-foreground:     var(--muted-foreground);
+  --color-accent:               var(--accent);
+  --color-accent-foreground:    var(--accent-foreground);
+  --color-destructive:          var(--destructive);
+  --color-border:               var(--border);
+  --color-input:                var(--input);
+  --color-ring:                 var(--ring);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius: var(--radius);
+
+  --font-display: var(--font-display);
+  --font-body:    var(--font-body);
+  --font-mono:    var(--font-mono);
+  --font-ui:      var(--font-ui);
+
+  --shadow-soft: var(--shadow-soft);
+  --shadow-pop:  var(--shadow-pop);
+}
+
+/* ── BlockNote (shadcn) palette — required for editor chrome ────────────── */
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+/* ── Globals ────────────────────────────────────────────────────────────── */
+html {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  height: 100dvh;
+  overflow: hidden;
+  text-rendering: optimizeSpeed;
+  margin: 0;
+}
+
+/* ── View / export / print: hide editor chrome for clean reading ────────── */
+[data-mode="view"] .editor-footer,
+[data-mode="view"] .bn-side-menu,
+[data-mode="view"] .bn-block-side-menu,
+[data-mode="view"] .bn-suggestion-menu,
+[data-mode="view"] .bn-formatting-toolbar,
+[data-mode="view"] .bn-link-toolbar,
+.is-export .editor-footer,
+.is-export .bn-side-menu,
+.is-export .bn-block-side-menu,
+.is-export .bn-suggestion-menu,
+.is-export .bn-formatting-toolbar,
+.is-export .bn-link-toolbar {
+  display: none !important;
+}
+
+@media print {
+  .editor-footer,
+  .bn-side-menu,
+  .bn-block-side-menu,
+  .bn-suggestion-menu,
+  .bn-formatting-toolbar,
+  .bn-link-toolbar {
+    display: none !important;
+  }
+}
+
+[data-mode="view"] [contenteditable='true'],
+.is-export [contenteditable='true'] {
+  outline: none;
+  caret-color: transparent;
+  cursor: default;
+}
+
+/* BlockNote shadcn skin needs the border + outline tokens we set above. */
+@layer base {
+  .bn-shadcn * {
+    border-color: var(--border);
+  }
+  .bn-shadcn *:focus-visible {
+    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+}
+
+/*
+  BlockNote + @blocknote/shadcn — drive editor + floating UI from Writepad tokens.
+  - Menus / toolbars use shadcn classes: bg-popover, hover:bg-accent, text-muted-foreground, …
+  - Core chrome still reads --bn-colors-* on .bn-root (see BlockNote “Overriding CSS”).
+  https://www.blocknotejs.org/docs/react/styling-theming/overriding-css
+*/
+html[data-theme] {
+  --background: var(--color-bg);
+  --foreground: var(--color-fg);
+  --card: var(--color-bg-elevated);
+  --card-foreground: var(--color-fg);
+  --popover: var(--color-bg-elevated);
+  --popover-foreground: var(--color-fg);
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-on-primary);
+  --secondary: var(--color-bg-subtle);
+  --secondary-foreground: var(--color-fg);
+  --muted: var(--color-bg-subtle);
+  --muted-foreground: var(--color-fg-soft);
+  --accent: var(--color-primary-soft);
+  --accent-foreground: var(--color-fg);
+  --destructive: var(--color-danger);
+  --border: var(--color-rule);
+  --input: var(--color-rule);
+  --ring: color-mix(in srgb, var(--color-primary) 65%, transparent);
+}
+
+html[data-theme] .bn-shadcn .bn-root {
+  --bn-colors-editor-background: var(--color-bg-elevated);
+  --bn-colors-editor-text: var(--color-fg);
+  --bn-colors-menu-background: var(--color-bg-elevated);
+  --bn-colors-menu-text: var(--color-fg);
+  --bn-colors-tooltip-background: var(--color-bg-subtle);
+  --bn-colors-tooltip-text: var(--color-fg);
+  --bn-colors-hovered-background: var(--color-bg-subtle);
+  --bn-colors-hovered-text: var(--color-fg);
+  --bn-colors-selected-background: var(--color-primary);
+  --bn-colors-selected-text: var(--color-on-primary);
+  --bn-colors-disabled-text: var(--color-fg-faint);
+  --bn-colors-disabled-background: var(--color-bg-subtle);
+  --bn-colors-border: var(--color-rule);
+  --bn-colors-side-menu: var(--color-fg-faint);
+  --bn-colors-shadow: color-mix(in srgb, var(--color-fg) 18%, transparent);
+}
+
+html[data-theme] .bn-shadcn [data-content-type='quote'] blockquote {
+  color: var(--color-fg-soft);
+  border-left-color: var(--color-rule);
+}
+
+html[data-theme] .bn-shadcn [data-content-type='divider'] hr {
+  border-top-color: var(--color-rule);
+}
+
+html[data-theme] .bn-shadcn .bn-editor [data-content-type='table'] th,
+html[data-theme] .bn-shadcn .bn-editor [data-content-type='table'] td {
+  border-color: var(--color-rule);
+}
+
+html[data-theme] .bn-shadcn .bn-block-content.ProseMirror-selectednode > *,
+html[data-theme] .bn-shadcn .ProseMirror-selectednode > .bn-block-content > * {
+  outline-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+}
+
+/* Anchors inside our chrome should look like plain text by default. */
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: none; }
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes dropdown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+.bn-editor {
+  background-color: inherit !important;
+  color: inherit !important;
+}

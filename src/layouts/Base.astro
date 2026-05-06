@@ -1,0 +1,50 @@
+---
+import '@/styles/tailwind.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Writepad — BlockNote in the browser' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Pre-paint script: apply persisted theme + mode before first frame -->
+    <script is:inline>
+      (function () {
+        var prefix = 'writepad.';
+        try {
+          var rawTheme = localStorage.getItem(prefix + 'theme');
+          if (rawTheme) {
+            var t = JSON.parse(rawTheme);
+            if (t.preset) document.documentElement.setAttribute('data-theme', t.preset);
+            if (t.overrides) {
+              var s = document.documentElement.style;
+              for (var k in t.overrides) s.setProperty(k, t.overrides[k]);
+            }
+          }
+
+          var rawMode = localStorage.getItem(prefix + 'mode');
+          document.documentElement.setAttribute('data-mode', rawMode || 'write');
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

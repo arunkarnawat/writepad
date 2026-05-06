@@ -1,0 +1,35 @@
+{
+  "name": "regular-rotation",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "dev:force": "astro dev --force",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@blocknote/core": "^0.49.0",
+    "@blocknote/react": "^0.49.0",
+    "@blocknote/shadcn": "^0.49.0",
+    "@blocknote/xl-pdf-exporter": "^0.49.0",
+    "@react-pdf/renderer": "^4.5.1",
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.2.1",
+    "nanoid": "^5.1.11",
+    "qrcode-generator": "^2.0.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tailwindcss": "^4.2.4",
+    "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3"
+  }
+}
