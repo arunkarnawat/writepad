@@ -49,8 +49,7 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://writepad.org');
             }
           }
 
-          var rawMode = localStorage.getItem(prefix + 'mode');
-          document.documentElement.setAttribute('data-mode', rawMode || 'write');
+          document.documentElement.setAttribute('data-mode', 'write');
         } catch (_) {}
       })();
     </script>

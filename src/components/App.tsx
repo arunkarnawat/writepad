@@ -34,10 +34,9 @@ export default function App() {
         }
       }
 
-      const rawMode = localStorage.getItem(STORAGE_KEY_PREFIX + 'mode');
-      if (rawMode) {
-        useAppStore.getState().patchUi({ mode: rawMode as 'write' | 'view' });
-      }
+      // `mode` is intentionally NOT restored from localStorage — every refresh
+      // should start in write mode. Clean up any legacy value left from older builds.
+      localStorage.removeItem(STORAGE_KEY_PREFIX + 'mode');
 
       const rawWidth = localStorage.getItem(STORAGE_KEY_PREFIX + 'sidebarWidth');
       if (rawWidth) {

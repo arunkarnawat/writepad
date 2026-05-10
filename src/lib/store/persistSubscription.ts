@@ -14,7 +14,6 @@ export function startPersistSubscription() {
       }
       if (state.ui !== prev.ui) {
         localStorage.setItem(STORAGE_KEY_PREFIX + 'sidebarWidth', state.ui.sidebarWidth.toString());
-        localStorage.setItem(STORAGE_KEY_PREFIX + 'mode', state.ui.mode);
         localStorage.setItem(STORAGE_KEY_PREFIX + 'sidebarCollapsed', state.ui.sidebarCollapsed ? '1' : '0');
       }
     }

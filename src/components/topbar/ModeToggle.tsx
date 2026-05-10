@@ -6,7 +6,11 @@ export default function ModeToggle() {
 
   const setMode = (next: 'write' | 'view') => {
     if (mode === next) return;
-    patchUi({ mode: next, sidebarCollapsed: next === 'view' });
+    patchUi({
+      mode: next,
+      sidebarCollapsed: next === 'view',
+      mobileSidebarOpen: false,
+    });
   };
 
   const segBtn =

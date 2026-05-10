@@ -74,7 +74,10 @@ export default function TodoSidebar() {
     'transition-[width,min-width,max-width,transform,border-color] duration-[220ms] ease-[cubic-bezier(0.2,0.8,0.2,1)]',
   ].join(' ');
 
-  const collapsedClasses = isHidden ? 'pointer-events-none [&>*]:invisible' : '';
+  // `sidebarCollapsed` is a desktop-only concept (controls width-based collapse).
+  // On mobile the drawer's visibility is driven by `mobileSidebarOpen`, so these
+  // visibility classes must NOT apply below 900px or the mobile drawer renders blank.
+  const collapsedClasses = isHidden ? 'min-[901px]:pointer-events-none min-[901px]:[&>*]:invisible' : '';
 
   const mobileClasses =
     'max-[900px]:fixed max-[900px]:top-[52px] max-[900px]:right-0 max-[900px]:bottom-0 max-[900px]:left-0 ' +
@@ -91,7 +94,7 @@ export default function TodoSidebar() {
         .filter(Boolean)
         .join(' ')}
       style={{ width: isHidden ? 0 : `${sidebarWidth}%` }}
-      aria-hidden={isHidden}
+      aria-hidden={isHidden && !mobileSidebarOpen}
     >
       <div className="hidden max-[900px]:flex flex-wrap items-center justify-between gap-1.5 px-4 pt-3 pb-2 border-b border-rule">
         <ModeToggle />
