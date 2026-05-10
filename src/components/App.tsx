@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import type { PartialBlock } from '@blocknote/core';
 import { useAppStore, tickRelativeTime } from '@/lib/store/appStore';
 import { startPersistSubscription, stopPersistSubscription } from '@/lib/store/persistSubscription';
@@ -7,7 +7,8 @@ import { STORAGE_KEY_PREFIX } from '@/lib/config';
 import type { AppState } from '@/lib/schema/types';
 import TopBar from './topbar/TopBar';
 import MainLayout from './MainLayout';
-import HelpModal from './topbar/HelpModal';
+
+const HelpModal = lazy(() => import('./topbar/HelpModal'));
 
 const NOW_TICK_INTERVAL_MS = 30_000;
 
@@ -101,13 +102,24 @@ export default function App() {
     return () => window.clearInterval(id);
   }, []);
 
-  if (!ready) return null;
+  if (!ready) return (
+    <div className="flex flex-col h-dvh overflow-hidden" aria-busy="true" aria-label="Loading Writepad">
+      <div className="flex items-center justify-between h-[52px] px-5 border-b border-rule bg-bg shrink-0" />
+      <div className="flex flex-1 min-h-0">
+        <main className="flex flex-col flex-1 min-h-0 bg-bg" />
+      </div>
+    </div>
+  );
 
   return (
     <div className="flex flex-col h-dvh overflow-hidden">
       <TopBar />
       <MainLayout />
-      {ui.helpOpen && <HelpModal />}
+      {ui.helpOpen && (
+        <Suspense fallback={null}>
+          <HelpModal />
+        </Suspense>
+      )}
     </div>
   );
 }

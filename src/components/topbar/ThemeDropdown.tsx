@@ -55,6 +55,7 @@ export default function ThemeDropdown() {
         onClick={() => setOpen(o => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
+        aria-label={`Theme: ${current.label}`}
         title="Theme"
       >
         <span

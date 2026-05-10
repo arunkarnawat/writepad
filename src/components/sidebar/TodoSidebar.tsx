@@ -2,6 +2,12 @@ import { useMemo, useState } from 'react';
 import { useAppStore } from '@/lib/store/appStore';
 import TodoItem from './TodoItem';
 import TodoInput from './TodoInput';
+import ModeToggle from '../topbar/ModeToggle';
+import GithubLink from '../topbar/GithubLink';
+import HelpButton from '../topbar/HelpButton';
+import QRButton from '../topbar/QRButton';
+import DownloadMenu from '../topbar/DownloadMenu';
+import ThemeDropdown from '../topbar/ThemeDropdown';
 
 export default function TodoSidebar() {
   const ui = useAppStore(s => s.ui);
@@ -71,9 +77,9 @@ export default function TodoSidebar() {
   const collapsedClasses = isHidden ? 'pointer-events-none [&>*]:invisible' : '';
 
   const mobileClasses =
-    'max-[900px]:fixed max-[900px]:top-[60px] max-[900px]:right-0 max-[900px]:bottom-0 ' +
-    'max-[900px]:!w-[85%] max-[900px]:max-w-none max-[900px]:z-[1000] ' +
-    'max-[900px]:translate-x-full max-[900px]:shadow-[-4px_0_12px_rgba(0,0,0,0.05)]';
+    'max-[900px]:fixed max-[900px]:top-[52px] max-[900px]:right-0 max-[900px]:bottom-0 max-[900px]:left-0 ' +
+    'max-[900px]:!w-full max-[900px]:max-w-none max-[900px]:z-[1000] ' +
+    'max-[900px]:translate-x-full max-[900px]:border-l-0 max-[900px]:shadow-none';
 
   const mobileOpenClasses = mobileSidebarOpen
     ? 'max-[900px]:!translate-x-0 max-[900px]:pointer-events-auto'
@@ -87,6 +93,16 @@ export default function TodoSidebar() {
       style={{ width: isHidden ? 0 : `${sidebarWidth}%` }}
       aria-hidden={isHidden}
     >
+      <div className="hidden max-[900px]:flex flex-wrap items-center justify-between gap-1.5 px-4 pt-3 pb-2 border-b border-rule">
+        <ModeToggle />
+        <div className="flex items-center gap-1.5">
+          <QRButton />
+          <HelpButton />
+          <DownloadMenu />
+          <ThemeDropdown />
+        </div>
+      </div>
+
       <header className="flex items-center justify-between gap-2.5 pt-[18px] pr-5 pb-3 pl-5 shrink-0">
         <div className="flex items-baseline gap-2.5">
           <h2 className="font-display text-[22px] font-bold text-fg tracking-[-0.01em] m-0">TODO</h2>

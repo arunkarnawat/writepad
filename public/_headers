@@ -8,8 +8,16 @@
 /favicon.svg
   Cache-Control: public, max-age=86400
 
+# robots.txt + sitemap — cache for a day.
+/robots.txt
+  Cache-Control: public, max-age=86400
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+
 # HTML and everything else — always revalidate so deploys are picked up immediately.
 /*
   Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()

@@ -4,5 +4,20 @@ import App from '@/components/App';
 ---
 
 <Base>
-  <App client:only="react" />
+  <App client:only="react">
+    <!-- Static fallback shown until the React app hydrates -->
+    <div class="flex flex-col h-dvh overflow-hidden" aria-busy="true" aria-label="Loading Writepad">
+      <header class="flex items-center justify-between gap-4 h-[52px] px-5 py-2.5 border-b border-rule bg-bg shrink-0">
+        <div class="flex items-center gap-2 text-fg font-semibold">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+          <span>Writepad</span>
+        </div>
+      </header>
+      <main class="flex flex-1 items-center justify-center text-fg-faint text-sm">
+        Loading…
+      </main>
+    </div>
+  </App>
 </Base>

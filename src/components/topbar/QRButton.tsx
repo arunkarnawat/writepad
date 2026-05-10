@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import QRModal from './QRModal';
+import { lazy, Suspense, useState } from 'react';
 import { Button } from '../shared/Button';
+
+const QRModal = lazy(() => import('./QRModal'));
 
 export default function QRButton() {
   const [open, setOpen] = useState(false);
@@ -58,7 +59,11 @@ export default function QRButton() {
           />
         </svg>
       </Button>
-      {open && <QRModal onClose={() => setOpen(false)} />}
+      {open && (
+        <Suspense fallback={null}>
+          <QRModal onClose={() => setOpen(false)} />
+        </Suspense>
+      )}
     </>
   );
 }

@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import type { Block } from '@blocknote/core';
 import { useCreateBlockNote } from '@blocknote/react';
 import { BlockNoteView } from '@blocknote/shadcn';
-import '@blocknote/core/fonts/inter.css';
 import '@blocknote/shadcn/style.css';
 import { useAppStore } from '@/lib/store/appStore';
 import EditorFooter from './EditorFooter';
@@ -46,11 +45,12 @@ export default function BlockNoteEditor({ initialDoc }: Props) {
 
   return (
     <main
+      id="main-content"
       className="flex flex-col flex-1 min-w-0 min-h-0 h-full bg-bg relative overflow-hidden"
       data-mode={mode}
     >
       <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
-        <div className="w-full max-w-[1280px] mx-auto pt-12 pb-[120px] px-[clamp(40px,6vw,120px)]">
+        <div className="w-full max-w-[1280px] mx-auto pt-12 pb-[120px] px-[clamp(16px,5vw,120px)] max-[600px]:pt-6">
           <div className="bn-shadcn min-h-[40vh] font-body">
             <BlockNoteView editor={editor} editable={mode === 'write'} />
           </div>
