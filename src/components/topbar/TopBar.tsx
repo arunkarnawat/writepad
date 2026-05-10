@@ -21,8 +21,7 @@ export default function TopBar() {
           className="inline-flex items-center gap-2 text-primary font-ui font-semibold shrink-0 hover:opacity-85"
           aria-label={`${APP_NAME} home`}
         >
-          <Logo className="h-5 w-5" />
-          <span className="text-[15px] max-[600px]:hidden">{APP_NAME}</span>
+          <Logo />
         </a>
 
         <div className="hidden min-[901px]:flex items-center gap-3">
