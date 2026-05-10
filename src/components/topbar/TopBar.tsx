@@ -7,6 +7,7 @@ import GithubLink from './GithubLink';
 import HelpButton from './HelpButton';
 import ThemeDropdown from './ThemeDropdown';
 import MobileSidebarToggle from '../sidebar/MobileSidebarToggle';
+import Logo from '@/components/Logo';
 import { APP_NAME } from '@/lib/config';
 
 export default function TopBar() {
@@ -20,9 +21,7 @@ export default function TopBar() {
           className="inline-flex items-center gap-2 text-primary font-ui font-semibold shrink-0 hover:opacity-85"
           aria-label={`${APP_NAME} home`}
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-          </svg>
+          <Logo className="h-5 w-5" />
           <span className="text-[15px] max-[600px]:hidden">{APP_NAME}</span>
         </a>
 
